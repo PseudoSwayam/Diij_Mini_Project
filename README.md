@@ -1,52 +1,99 @@
-Swayam_Prakash_Sahoo - Mini Project
-=================================
+# Swayam_Prakash_Sahoo — Mini JDBC Library (Derby)
 
-Package: p2341019067 (adjusted from requested numeric package name)
-Project name: Swayam_Prakash_Sahoo
+Project: swayam_prakash_sahoo
+Package identifier: 2341019067 (Java package directory is pkg2341019067)
 
-Package: 2341019067 (note: numeric package names are invalid in Java; the sources use `p2341019067`)
+## Overview
 
-Overview
---------
-This is a compact, runnable Java console application demonstrating an end-to-end JDBC
-Library Loan Management System using Apache Derby (embedded).
+This repository contains a small, self-contained Java console application that
+implements a Library Loan Management System using Apache Derby (embedded). The
+application demonstrates JDBC programming patterns: connection management,
+prepared statements, transactions with savepoints, foreign keys, indexing, and
+basic performance measurement.
 
-Structure
----------
-- src/p2341019067/ConnectionManager.java
-- src/p2341019067/SchemaInitializer.java
-- src/p2341019067/BusinessLogic.java
-- src/p2341019067/PerformanceEvaluator.java
-- src/p2341019067/MainApp.java
+## Features
 
-Build & Run
------------
-Ensure Derby jars are on your classpath. If Derby is installed and added to PATH, you
-can compile and run with (from this folder):
+- Library member registration
+- Book catalog management
+- Loan processing with transactional safety and savepoints
+- Loan return processing
+- Query active loans by member
+- Performance evaluation runner
+
+## Repository contents
+
+- src/pkg2341019067/ — Java source files (core application)
+- demo_mini_project.sh — scripted demo (non-interactive) that exercises the app
+- run.sh — convenience script to compile and launch the interactive CLI
+- README.md — this file
+- PROJECT_ANALYSIS.md — detailed architecture and design analysis
+
+## Prerequisites
+
+- Java (OpenJDK) installed. Example used in this workspace:
+  /opt/homebrew/opt/openjdk/bin/java
+- Apache Derby JAR available. Example Homebrew Derby path used here:
+  /opt/homebrew/Cellar/derby/10.17.1.0/libexec/lib/derby.jar
+
+## Build & run (interactive)
+
+Compile the sources into out/ and run the interactive CLI:
 
 ```bash
-javac -d out -sourcepath src src/p2341019067/*.java
- Java package identifiers cannot start with a digit; the code therefore uses
- `p2341019067` to reflect the requested numeric id while staying Java-valid.
- The embedded database `SwayamDB` is created in the working directory. The CLI
- offers options to initialize schema, register members, add books, process loans,
- and run basic performance evaluations. The performance runner writes `perf_report.csv`.
+javac -cp /opt/homebrew/Cellar/derby/10.17.1.0/libexec/lib/derby.jar -d out -sourcepath src src/pkg2341019067/*.java
 
-Run script
-----------
-I included `run.sh` which compiles sources into `out/` and runs `p2341019067.MainApp`.
-If you have Derby's `derby.jar` path, set the `DERBY_JAR` environment variable before running.
+java -cp /opt/homebrew/Cellar/derby/10.17.1.0/libexec/lib/derby.jar:out pkg2341019067.MainApp
+```
 
-Example:
+Or use the convenience script (compiles then runs):
 
 ```bash
-export DERBY_JAR=/path/to/derby/lib/derby.jar
+chmod +x run.sh
+export DERBY_JAR=/opt/homebrew/Cellar/derby/10.17.1.0/libexec/lib/derby.jar
 ./run.sh
 ```
-Notes
------
-- The requested numeric package name `2341019067` is invalid in Java. I used
-  `p2341019067` instead to keep the project unique and valid.
-- The embedded database `SwayamDB` is created in the working directory. The CLI
-  offers options to initialize schema, register members, add books, process loans,
-  and run basic performance evaluations. The performance runner writes `perf_report.csv`.
+
+## Demo (non-interactive)
+
+For reproducible output (useful for screenshots and automated tests) run the scripted demo:
+
+```bash
+/bin/bash demo_mini_project.sh
+```
+
+## Data model (summary)
+
+- Members(MemberID, Name, ActiveLoanCount)
+- Books(BookID, ISBN, Title, Available)
+- Loans(LoanID, BookID, MemberID, LoanDate, ReturnDate)
+
+Indexes:
+- IDX_BOOK_ISBN
+- IDX_LOAN_MEMBER
+- IDX_LOAN_RETURN
+
+## Transaction design (summary)
+
+Loan processing uses a multi-step transaction with a savepoint to ensure:
+
+1) Book availability is validated
+2) Book is reserved (Available = 0)
+3) Loan is inserted
+4) Member loan count is updated
+
+If a step fails, the transaction is rolled back safely to preserve consistency.
+
+## Notes on package name
+
+Java package names cannot begin with digits. To preserve the requested identifier
+2341019067 while remaining valid the project uses pkg2341019067 as the package
+directory. The logical project id remains documented as 2341019067.
+
+## Project analysis
+
+See PROJECT_ANALYSIS.md for a detailed description of architecture, schema,
+transactions, and extension ideas.
+
+## Author
+
+Swayam Prakash Sahoo

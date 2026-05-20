@@ -1,0 +1,16 @@
+----------------------------------------------------------------
+Tue May 19 15:04:41 IST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-019e-3f96-63d4-0000077dee28 
+on database directory /Users/swayamsahoo/Projects/diij_lab/comm/dbms/mini_project/SwayamDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7a8c5397 
+Loaded from file:/opt/homebrew/Cellar/derby/10.17.1.0/libexec/lib/derby.jar
+java.vendor=Homebrew
+java.runtime.version=25.0.2
+user.dir=/Users/swayamsahoo/Projects/diij_lab/comm/dbms/mini_project
+os.name=Mac OS X
+os.arch=aarch64
+os.version=26.2
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Tue May 19 15:04:41 IST 2026:
+Shutting down instance a816c00e-019e-3f96-63d4-0000077dee28 on database directory /Users/swayamsahoo/Projects/diij_lab/comm/dbms/mini_project/SwayamDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7a8c5397 
